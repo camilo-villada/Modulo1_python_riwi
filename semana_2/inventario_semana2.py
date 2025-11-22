@@ -4,11 +4,13 @@ def agregar_producto():
     
     while True: #bucle principal
         
+        #pedir nombre del producto y validar errores
         nombre_producto = input("Ingrese el nombre del producto: ")
         if nombre_producto.isdigit():
             print("Ingrese un producto valido: ")
             continue
 
+        #pedir precio del producto y validar errores
         while True:
             try:
                 precio_producto = float(input("Ingrese el precio del producto: "))
@@ -20,6 +22,7 @@ def agregar_producto():
                 print("Ingrese un valor valido.")
 
         cantidad = -1
+        ##pedir cantidad del producto y validar errores
         while cantidad <= 0:
             try:
                 cantidad = int(input("Ingresa la cantidad de productos: "))
@@ -29,10 +32,12 @@ def agregar_producto():
                 print("Ingrese una cantidad valida.")
                 cantidad = -1
     
+        #agregar producto al inventario
         producto = {"nombre" : nombre_producto, "precio" : precio_producto, "cantidad" : cantidad}
         inventario.append(producto)
         print("Producto agregado correctamente")
         
+        #preguntar si desea agregar otro producto
         while True:
             respuesta = input("Desea agregar otro producto? (s/n)")
             if respuesta == "s":
@@ -45,10 +50,12 @@ def agregar_producto():
     
 
 def mostrar_inventario():
+    #verificar si el inventario esta vacio
     if not inventario:
         print("El inventario esta vacio.")
         return
     
+    #mostrar productos del inventario
     for elementos in inventario:
         nombre = elementos["nombre"]
         precio = elementos["precio"]
@@ -64,17 +71,20 @@ def calcular_productos():
     total_valor = 0
     total_cantidad = 0
 
+    #calcular valor total y cantidad total de productos
     for productos in inventario:
         total_valor += productos["precio"] * productos["cantidad"]
         total_cantidad += productos["cantidad"]
 
 
-
+    #mostrar resultados
     print(f"El valor total del inventario es: {total_valor}")
     print(f"La cantidad total de productos es: {total_cantidad}")
 
 
 def menu():
+
+    #menu principal
     while True:
         try:
             menu = int(input(

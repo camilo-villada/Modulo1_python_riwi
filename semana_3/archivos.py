@@ -1,7 +1,7 @@
 import csv
 
 def guardar_csv(inventario, ruta, incluir_header=True):
-    """Guardar el inventario en un archivo CSV"""
+    """Guardar el inventario en un archivo CSV."""
     if not inventario:
         print("Inventario vacío. No se puede guardar.")
         return

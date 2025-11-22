@@ -1,9 +1,12 @@
+#importar funciones de guardar y cargar CSV
 from archivos import guardar_csv, cargar_csv
 
+#lista para almacenar los productos
 inventario = []
 
 def nombre_producto(mensaje):
 
+    #validar nombre del producto
     while True:
         nombre = input(mensaje)
         if nombre.isdigit():
@@ -14,6 +17,7 @@ def nombre_producto(mensaje):
 
 def precio_producto(mensaje):
 
+    #validar precio del producto
     while True:
         try:
             precio = float(input(mensaje))
@@ -27,6 +31,7 @@ def precio_producto(mensaje):
 
 def cantidad_producto(mensaje):
 
+    #validar cantidad del producto
     while True:
         try:
             cantidad = int(input(mensaje))
@@ -40,13 +45,16 @@ def cantidad_producto(mensaje):
 
 def agregar_producto():
 
+    #pedir datos del producto
     nombre = nombre_producto("Ingrese el nombre del producto: ")
     precio = precio_producto("Ingrese el precio del producto: ")
     cantidad = cantidad_producto("Ingrese la cantidad del producto: ")
 
+    #agregar producto al inventario
     inventario.append({'nombre' : nombre, 'precio' : precio, 'cantidad' : cantidad})
     print("producto agregado correctamente")
 
+    #preguntar si desea agregar otro producto
     while True:
         agregar_otro_producto = input("¿Desea agregar otro producto? (s/n)")
         if agregar_otro_producto == 's':
@@ -57,18 +65,21 @@ def agregar_producto():
         else:
             print("Ingrese una opcion.")
 
+    #mostrar productos agregados
     for item in inventario:
         print(f"Nombre: {item['nombre']} | Precio: {item['precio']} | Cantidad: {item['cantidad']}\n ")
 
 
 def mostrar_inventario():
 
+    #verificar si el inventario esta vacio
     if not inventario:
         print("Inventario vacio.")
         return
     
     total = 0
 
+    #mostrar productos del inventario con subtotal
     for item in inventario:
         subtotal = item['precio'] * item['cantidad']
         total += subtotal
@@ -86,6 +97,7 @@ def buscar_producto():
     nombre = nombre_producto("Ingrese el nombre del producto: ")
     encontrado = False
 
+    #buscar producto por nombre
     for item in inventario:
         subtotal = item['precio'] * item['cantidad']
         if item['nombre'].lower() == nombre.lower():
@@ -93,6 +105,7 @@ def buscar_producto():
             encontrado = True
             break
 
+    #avisar si no se encontro el producto
     if not encontrado:
         print("Producto no encontrado.")
 
@@ -107,6 +120,7 @@ def actualizar_producto():
     nombre = nombre_producto("Ingrese el nombre del producto: ")
     encontrado = False
 
+    #actualizar datos del producto
     for item in inventario:
         if item['nombre'].lower() == nombre.lower():
             
@@ -118,6 +132,7 @@ def actualizar_producto():
             item['precio'] = nuevo_precio
             item['cantidad'] = nueva_cantidad
 
+            #mostrar resultados
             print(f"Producto '{nombre}' actualizado correctamente.")
             encontrado = True
             break
@@ -135,6 +150,7 @@ def eliminar_producto():
     nombre = nombre_producto("Ingrese el nombre del producto: ")
     encontrado = False
 
+    #eliminar producto por nombre
     for items in inventario:
         if items['nombre'].lower() == nombre.lower():
             inventario.remove(items)
@@ -145,6 +161,8 @@ def eliminar_producto():
 
 
 def guardar_inventario():
+
+    #guardar inventario en un CSV
     if not inventario:
         print("Inventario vacio. No se puede guardar.")
         return
@@ -193,6 +211,7 @@ def cargar_inventario():
 
 def menu():
 
+    #menu principal
     while True:
         try:
             menu_opciones = int(input(
